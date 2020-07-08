@@ -1,6 +1,5 @@
 from pythonping import ping
-import time
-#from SitePingMetrics import SitePingMetrics
+from SitePingMetrics import SitePingMetrics
 
 PING_TIMEOUT=4
 PING_COUNT=9
@@ -32,17 +31,13 @@ class SitePinger():
         return num_long_png  
     
     def analyize_ping_metrics(self, responses):
-        #metrics = SitePingMetrics()
+        metrics = SitePingMetrics()
         max_ping = responses.rtt_max_ms
         num_long_responses = self.num_long_pings(responses)
-        print("The max ping was {} ms and the number of pings over {} was {}".format(max_ping, self.ping_threshold_ms, num_long_responses))
-        #return metrics
+        print("The max ping for {} was {} ms and the number of pings over {} was {}".format(self.site_addr, max_ping, self.ping_threshold_ms, num_long_responses))
+        return metrics
         
-    def run(self, iterations=10):
-        print("Pinging {} for {} times".format(self.site_addr, iterations))
-        for _ in range(iterations):
-            responses = self.capture_ping_metrics()
-            metrics = self.analyize_ping_metrics(responses)
-            time.sleep(self.sleep_length_sec)
-        print("Finished pinging {}".format(self.site_addr))
+    def run_ping(self):
+        responses = self.capture_ping_metrics()
+        metrics = self.analyize_ping_metrics(responses)
         
