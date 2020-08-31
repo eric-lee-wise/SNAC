@@ -24,7 +24,7 @@ class SitePinger():
         return ping(self.site_addr, timeout=self.ping_timeout, count=self.ping_count)
     
     def num_long_pings(self, responses):
-        num_long_png = 0;
+        num_long_png = 0
         for response in responses:
             if response.time_elapsed_ms > self.ping_threshold_ms:
                 num_long_png += 1
